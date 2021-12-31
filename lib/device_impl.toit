@@ -31,6 +31,9 @@ class Device_ implements device.Device_:
   estimate_time_accuracy -> int?:
     throw "NOT IMPLEMENTED"
 
+  temperature -> int:
+    return get_temperature_
+
 class FlashStore_ implements device.Store:
   static instance_/FlashStore_? := null
 
@@ -71,6 +74,9 @@ class Gnss_:
 
 get_mac_address_:
   #primitive.esp32.get_mac_address
+
+get_temperature_:
+  #primitive.esp32.get_temperature
 
 class Volume_:
   name_/string ::= ?

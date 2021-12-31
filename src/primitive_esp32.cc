@@ -136,6 +136,11 @@ PRIMITIVE(get_mac_address) {
   return result;
 }
 
+extern "C" { uint8_t temprature_sens_read(); }
+PRIMITIVE(get_temperature) {
+  return Smi::from(temprature_sens_read());
+}
+
 } // namespace toit
 
 #endif // TOIT_FREERTOS

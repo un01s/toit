@@ -15,6 +15,7 @@ interface Device_:
   name -> string?
   hardware_id -> uuid.Uuid
   estimate_time_accuracy -> int?
+  temperature -> int
 
 
 /** Name of this device. */
@@ -23,6 +24,13 @@ name -> string?:
 
 /** Hardware ID of this device. */
 hardware_id/uuid.Uuid ::= impl.Device_.instance.hardware_id
+
+/**
+Temperature of this device.
+Not supported on all hardware.
+*/
+temperature -> int:
+  return (impl.Device_.instance).temperature
 
 /**
 Estimated time accuracy of this device.
