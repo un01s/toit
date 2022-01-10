@@ -18,8 +18,5 @@ set(TOIT_FAILING_TESTS
 
 if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Windows")
   list(APPEND TOIT_FAILING_TESTS
-    tests/ctest/ar_read_test.cc
-    tests/ctest/image_test.cc
-    tests/ctest/ar_test.toit
   )
 endif()

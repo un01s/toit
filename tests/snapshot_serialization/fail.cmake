@@ -18,7 +18,5 @@ set(TOIT_FAILING_TESTS
 
 if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Windows")
   list(APPEND TOIT_FAILING_TESTS
-    tests/snapshot_serialization/snapshot_serialization2_test.toit
-    tests/snapshot_serialization/snapshot_serialization3_test.toit
   )
 endif()
