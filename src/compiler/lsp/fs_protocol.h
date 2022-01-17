@@ -24,13 +24,19 @@
 namespace toit {
 namespace compiler {
 
+class Diagnostics;
+
 struct LspFsConnection {
-  virtual void putline(const char*);
-  virtual char* getline();
+  virtual ~LspFsConnection() {}
+  virtual void initialize(Diagnostics* diagnostics) = 0;
+  virtual void putline(const char*) = 0;
+  virtual char* getline() = 0;
+  virtual int read_data(uint8* content, int size) = 0;
 };
 
 class LspFsProtocol {
  public:
+  LspFsProtocol(LspFsConnection* connection) : _connection(connection) { }
   struct PathInfo {
     bool exists;
     bool is_regular_file;
@@ -39,6 +45,9 @@ class LspFsProtocol {
     const uint8* content;
   };
 
+  void initialize(Diagnostics* diagnostics) {
+    _connection->initialize(diagnostics);
+  }
 
   const char* sdk_path();
   List<const char*> package_cache_paths();
@@ -46,6 +55,9 @@ class LspFsProtocol {
                               const std::function<void (const char*)> callback);
 
   PathInfo fetch_info_for(const char* path);
+
+ private:
+  LspFsConnection* _connection;
 };
 
 } // namespace toit::compiler
