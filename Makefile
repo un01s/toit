@@ -16,13 +16,13 @@
 .ONESHELL: # Run all lines of targets in one shell
 .SHELLFLAGS += -e
 
-# Use 'make ESP32_ENTRY=examples/mandelbrot.toit esp32' to compile a different
+# Use 'make ESP32_ENTRY=examples/mandelbrot.toit esp32s3' to compile a different
 # example for the ESP32 firmware.
 ESP32_ENTRY=examples/hello.toit
 ESP32_WIFI_SSID=
 ESP32_WIFI_PASSWORD=
 ESP32_PORT=
-ESP32_CHIP=esp32
+ESP32_CHIP=esp32s3
 export IDF_TARGET=$(ESP32_CHIP)
 
 # Use Toitware ESP-IDF fork by default.
@@ -145,8 +145,8 @@ else
 	NUM_CPU := 2
 endif
 
-.PHONY: esp32
-esp32: check-env build/$(ESP32_CHIP)/toit.bin
+.PHONY: esp32s3
+esp32s3: check-env build/$(ESP32_CHIP)/toit.bin
 
 build/$(ESP32_CHIP)/toit.bin build/$(ESP32_CHIP)/toit.elf: build/$(ESP32_CHIP)/lib/libtoit_vm.a
 build/$(ESP32_CHIP)/toit.bin build/$(ESP32_CHIP)/toit.elf: build/$(ESP32_CHIP)/lib/libtoit_image.a
@@ -185,7 +185,7 @@ build/config.json:
 
 # ESP32 VARIANTS FLASH
 .PHONY: flash
-flash: check-env-flash esp32
+flash: check-env-flash esp32s3
 	python $(IDF_PATH)/components/esptool_py/esptool/esptool.py --chip $(ESP32_CHIP) --port $(ESP32_PORT) --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0x1000 build/$(ESP32_CHIP)/bootloader/bootloader.bin 0x10000 build/$(ESP32_CHIP)/toit.bin 0x8000 build/$(ESP32_CHIP)/partitions.bin
 
 .PHONY: check-env-flash

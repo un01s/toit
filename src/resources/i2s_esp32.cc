@@ -32,9 +32,18 @@ namespace toit {
 const i2s_port_t kInvalidPort = i2s_port_t(-1);
 
 ResourcePool<i2s_port_t, kInvalidPort> i2s_ports(
+#ifdef CONFIG_IDF_TARGET_ESP32
+  I2S_NUM_0 = 0,
+  I2S_NUM_1
+#endif
+
+#ifdef CONFIG_IDF_TARGET_ESP32C3
   I2S_NUM_0
-#ifndef CONFIG_IDF_TARGET_ESP32C3
-, I2S_NUM_1
+#endif
+
+#ifdef CONFIG_IDF_TARGET_ESP32S3
+  I2S_NUM_0 = 0,
+  I2S_NUM_1
 #endif
 );
 

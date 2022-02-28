@@ -26,18 +26,30 @@
 #include "esp_attr.h"
 #include <soc/rtc.h>
 
+#ifdef CONFIG_IDF_TARGET_ESP32S3
+  #include <esp32s3/rom/ets_sys.h>
+#endif
+
 #ifdef CONFIG_IDF_TARGET_ESP32C3
   #include <esp32c3/rom/ets_sys.h>
-#else
+#endif
+
+#ifdef CONFIG_IDF_TARGET_ESP32
   #include <esp32/rom/ets_sys.h>
 #endif
 
 #include "esp_system.h"
 
 extern "C" {
+#ifdef CONFIG_IDF_TARGET_ESP32S3
+  #include <esp32s3/clk.h>
+#endif
+
 #ifdef CONFIG_IDF_TARGET_ESP32C3
   #include <esp32c3/clk.h>
-#else
+#endif
+
+#ifdef CONFIG_IDF_TARGET_ESP32
   #include <esp32/clk.h>
 #endif
 }

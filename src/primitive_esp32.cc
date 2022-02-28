@@ -51,11 +51,20 @@
 
 #include <soc/rtc_cntl_reg.h>
 
+#ifdef CONFIG_IDF_TARGET_ESP32S3
+  #include <soc/sens_reg.h>
+  #include <esp32s3/rom/rtc.h>
+  #include <esp32s3/rom/ets_sys.h>
+  #include <driver/touch_sensor.h>
+  #include <esp32s3/ulp.h>
+#endif
+
 #ifdef CONFIG_IDF_TARGET_ESP32C3
-//  #include <soc/esp32/include/soc/sens_reg.h>
   #include <esp32c3/rom/rtc.h>
   #include <esp32c3/rom/ets_sys.h>
-#else
+#endif
+
+#ifdef CONFIG_IDF_TARGET_ESP32
   #include <soc/sens_reg.h>
   #include <esp32/rom/rtc.h>
   #include <esp32/rom/ets_sys.h>
